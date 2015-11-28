@@ -1,0 +1,10 @@
+---
+# ansible-playbook bootstrap.yml -i hosts -vvv
+
+- hosts: sites
+  tasks:
+    - name: install django
+      sudo: yes
+      pkgng:
+        name: py27-django
+        state: present

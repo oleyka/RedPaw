@@ -1,6 +1,7 @@
 ---
 # ansible-playbook facts.yml -i hosts
-- hosts: site
+
+- hosts: sites
   gather_facts: yes
   tasks:
     - debug: var=hostvars[inventory_hostname]
