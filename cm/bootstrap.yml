@@ -3,8 +3,14 @@
 
 - hosts: sites
   tasks:
-    - name: install django
+    - name: install the site packages
       sudo: yes
       pkgng:
-        name: py27-django
+        name: "{{ item }}"
         state: present
+      with_items:
+        - collectd
+        - py27-supervisor
+        - nginx
+        - py27-django
+      when: ansible_os_family == "FreeBSD"
