@@ -4,4 +4,7 @@
 - hosts: sites
   gather_facts: yes
   tasks:
+    - name: snmp vars
+      sudo: yes
+      snmp_facts: host="{{ ansible_fqdn }}" version=v2c community=public
     - debug: var=hostvars[inventory_hostname]
