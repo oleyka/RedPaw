@@ -1,0 +1,31 @@
+---
+
+- name: install packages
+  sudo: yes
+  pkgng:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - net-snmp
+    - py27-snmp4
+  when: ansible_os_family == 'FreeBSD'
+
+- name: add snmp config # edit me
+  sudo: yes 
+  copy:
+    src: /usr/local/share/snmp/snmpd.conf.example
+    dest: /usr/local/etc/snmp/snmp.conf
+  when: false
+
+- name: Enable snmpd
+  sudo: yes 
+  service:
+    name: snmpd
+    enabled: yes 
+  notify: Restart snmpd
+
+- name: Restart snmpd
+  sudo: yes 
+  service:
+    name: snmpd
+    state: started

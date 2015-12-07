@@ -3,6 +3,12 @@
 
 - hosts: sites
   gather_facts: yes
+  pre_tasks:
+    - name: grab default git email
+      local_action: command /usr/local/bin/git config user.email
+      register: git_email
+    - debug: var=git_email
+
   tasks:
     - name: snmp vars
       sudo: yes

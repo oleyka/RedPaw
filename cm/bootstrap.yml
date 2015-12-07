@@ -2,6 +2,25 @@
 # ansible-playbook bootstrap.yml -i hosts -vvv
 
 - hosts: sites
+  pre_tasks:
+    - name: grab the git email
+      local_action: command /usr/local/bin/git config user.email
+      register: git_email
+    - name: create directory for custom repo settings
+      sudo: yes
+      file:
+        name: /usr/local/etc/pkg/repos
+        state: directory
+    - name: copy custom repo config
+      sudo: yes
+      copy:
+        src: files/repos-FreeBSD.conf
+        dest: /usr/local/etc/pkg/repos/FreeBSD.conf
+
+  vars:
+    user_email: git_email.stdout
+    ssl_source: 'letsencrypt'
+
   tasks:
     - name: install the site packages
       sudo: yes
@@ -13,37 +32,8 @@
         - py27-supervisor
         - nginx
         - py27-django
-        - net-snmp
-        - py27-snmp4
-      when: ansible_os_family == "FreeBSD"
+      when: ansible_os_family == 'FreeBSD'
 
-    - name: create self-signed SSL cert
-      sudo: yes
-      command: >
-        /usr/bin/openssl req -new -nodes -x509
-        -subj "/C=US/ST=California/L=LosAltosHills/O=Self/CN=*.{{ ansible_fqdn }}"
-        -days 3650 -extensions v3_ca
-        -keyout /etc/ssl/{{ ansible_fqdn }}.key
-        -out /etc/ssl/{{ ansible_fqdn }}.crt
-        creates=/etc/ssl/{{ ansible_fqdn }}.crt
-      when: ansible_os_family == "FreeBSD"
-
-    - name: add snmp config # edit me
-      sudo: yes
-      copy:
-        src: /etc/snmpd.config
-        dest: /usr/local/etc/snmp/snmp.conf
-      when: false
-
-    - name: Enable snmpd
-      sudo: yes
-      service:
-        name: snmpd
-        enabled: yes
-      notify: Restart snmpd
-
-    - name: Restart snmpd
-      sudo: yes
-      service:
-        name: snmpd
-        state: started
+  roles:
+    - ssl
+#    - snmp
