@@ -21,9 +21,9 @@
     state: link
   with_items:
     - src: /etc/ssl/{{ ansible_fqdn }}-self.crt
-      dest: /et/ssl/{{ ansible_fqdn }}.crt
+      dest: /etc/ssl/{{ ansible_fqdn }}.crt
     - src: /etc/ssl/{{ ansible_fqdn }}-self.key
-      dest: /et/ssl/{{ ansible_fqdn }}.key
+      dest: /etc/ssl/{{ ansible_fqdn }}.key
   when: >
     ansible_os_family == 'FreeBSD' and
     ssl_source == 'self'
@@ -77,13 +77,13 @@
     state: link
   with_items:
     - src: /usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/fullchain.pem
-      dest: /et/ssl/{{ ansible_fqdn }}-fullchain.crt
+      dest: /etc/ssl/{{ ansible_fqdn }}-fullchain.crt
     - src: /usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/chain.pem
-      dest: /et/ssl/{{ ansible_fqdn }}-chain.crt
+      dest: /etc/ssl/{{ ansible_fqdn }}-chain.crt
     - src: /usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/cert.pem
-      dest: /et/ssl/{{ ansible_fqdn }}.crt
+      dest: /etc/ssl/{{ ansible_fqdn }}.crt
     - src: /usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/privkey.pem
-      dest: /et/ssl/{{ ansible_fqdn }}.key
+      dest: /etc/ssl/{{ ansible_fqdn }}.key
   when: >
     ansible_os_family == 'FreeBSD' and
     ssl_source == 'letsencrypt'

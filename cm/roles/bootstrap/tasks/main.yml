@@ -1,0 +1,26 @@
+---
+- name: create directory for custom repo settings
+  sudo: yes
+  file:
+    name: /usr/local/etc/pkg/repos
+    state: directory
+  when: ansible_os_family == 'FreeBSD'
+
+- name: copy custom repo config
+  sudo: yes
+  copy:
+    src: files/repos-FreeBSD.conf
+    dest: /usr/local/etc/pkg/repos/FreeBSD.conf
+  when: ansible_os_family == 'FreeBSD'
+
+- name: install the site packages # to be moved to the corresponding roles
+  sudo: yes
+  pkgng:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - collectd
+    - py27-supervisor
+    - nginx
+    - py27-django
+  when: ansible_os_family == 'FreeBSD'

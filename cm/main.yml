@@ -1,0 +1,17 @@
+---
+# ansible-playbook main.yml -i hosts -vvv
+
+- hosts: sites
+  pre_tasks:
+    - name: grab the git email
+      local_action: command /usr/local/bin/git config user.email
+      register: git_email
+
+  vars:
+    ssl_source: 'letsencrypt'
+    user_email: "{{ git_email.stdout }}"
+
+  roles:
+    - bootstrap
+    - ssl
+#    - snmp
