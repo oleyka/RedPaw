@@ -1,0 +1,12 @@
+---
+
+- name: install the web packages
+  sudo: yes
+  pkgng:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - nginx
+    - uwsgi
+    - py27-django
+  when: ansible_os_family == 'FreeBSD'
