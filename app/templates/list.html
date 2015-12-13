@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Hello RedPaw!</title>
+</head>
+<body>
+{% block content %}
+{% for dog in dogs %}
+    <h2>{{ dog.name }}</h2>
+    <p>{{ dog.gender }}</p>
+{% endfor %}
+{% endblock %}
+</body>
+</html>
