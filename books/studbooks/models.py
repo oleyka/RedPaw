@@ -26,10 +26,10 @@ class Canine(models.Model):
 
 class Pedigree(models.Model):
     # data as recorded in the pedigree, even if incorrect
-    # TODO enum
-    registry = models.CharField(max_length=60, primary_key=True)
     # TODO split into meaningful parts as per registry's format
     number = models.CharField(max_length=60, primary_key=True)
+    # TODO enum
+    registry = models.CharField(max_length=60)
     # name as written in the pedigree
     name = models.CharField(max_length=200, blank=True)
     # name in alternative language (English or vice versa)
@@ -42,8 +42,8 @@ class Pedigree(models.Model):
     # TODO enum
     color = models.CharField(max_length=60, blank=True)
     gender = models.BooleanField()
-    sire = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
-    dam = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
+    sire = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE, related_name='sire')
+    dam = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE, related_name='dam')
 
     def __unicode__(self):
         return self.number

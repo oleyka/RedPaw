@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from . import views
+from studbooks import views
 
 urlpatterns = [
     url(r'^dogs/$', views.list_dogs),
