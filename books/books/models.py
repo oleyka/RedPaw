@@ -20,7 +20,7 @@ class Canine(models.Model):
         self.color = models.CharField(max_length=60, blank=True)
         self.gender = models.ManyToManyField(Pedigree, blank=True)
 
-    def __str__(self):              # __unicode__ on Python 2
+    def __unicode__(self):
         return self.name
 
 
@@ -45,5 +45,5 @@ class Pedigree(models.Model):
     sire = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
     dam = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
 
-    def __str__(self):              # __unicode__ on Python 2
+    def __unicode__(self):
         return self.number
