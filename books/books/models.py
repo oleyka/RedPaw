@@ -1,6 +1,6 @@
 from django.db import models
 
-# Pedigree and Canine modelshave to take into account the discrepancies
+# Pedigree and Canine models have to take into account the discrepancies
 # that are present in the databases used to feed the data
 
 class Canine(models.Model):
@@ -8,19 +8,21 @@ class Canine(models.Model):
     name = models.CharField(max_length=200)
     # alternative names (combined from the pedigrees)
     alt_name = models.CharField(max_length=2000, blank=True)
-    pedigrees = models.ManyToManyField(Pedigree, blank=True)
-    gender = models.BooleanField()
 
-    # these duplicate the pedigree data
-    # "official" vesion of there are discrepancies
-    birth_date = models.DateField(blank=True)
-    breed = models.CharField(max_length=60, blank=True)
-    color = models.CharField(max_length=60, blank=True)
-    sire = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
-    dam = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
+    def __init__(self):
+        # these duplicate the pedigree data
+        # TODO add logic for best version if there are discrepancies
+        self.pedigrees = models.ManyToManyField(Pedigree, blank=True)
+        self.sire = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
+        self.dam = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
+        self.birth_date = models.birth_date = models.DateField(blank=True)
+        self.breed = models.CharField(max_length=60, blank=True)
+        self.color = models.CharField(max_length=60, blank=True)
+        self.gender = models.ManyToManyField(Pedigree, blank=True)
 
     def __str__(self):              # __unicode__ on Python 2
         return self.name
+
 
 class Pedigree(models.Model):
     # data as recorded in the pedigree, even if incorrect
@@ -39,9 +41,9 @@ class Pedigree(models.Model):
     breed = models.CharField(max_length=60, blank=True)
     # TODO enum
     color = models.CharField(max_length=60, blank=True)
+    gender = models.BooleanField()
     sire = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
     dam = models.ForeignKey(Canine, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):              # __unicode__ on Python 2
         return self.number
-
