@@ -1,0 +1,8 @@
+---
+
+app:
+  name: books
+  module: app.wsgi:{{ app }}
+  path: /usr/local/www
+  log: /var/log/uwsgi/{{ app }}.log
+  pid: /var/tmp/uwsgi-{{ app }}.pid

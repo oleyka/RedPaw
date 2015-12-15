@@ -1,0 +1,9 @@
+---
+
+- name: install uwsgi package
+  sudo: yes
+  pkgng:
+    name: uwsgi
+    state: present
+  when: ansible_os_family == 'FreeBSD'
+
