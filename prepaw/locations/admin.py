@@ -5,7 +5,7 @@ from .models import Location, Intake, Animal
 
 class AnimalHistory(admin.StackedInline):
     model = Intake
-    extra = 3
+    extra = 1
 
 
 class AnimalAdmin(admin.ModelAdmin):

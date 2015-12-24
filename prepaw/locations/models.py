@@ -13,39 +13,6 @@ class Location(models.Model):
         return self.name
 
 
-class Intake(models.Model):
-    RECEIVED_FROM = (
-        ('transfer', 'transfer'),
-        ('owner', 'owner'),
-        ('sar/authorities', 'sar/authorities'),
-        ('individual', 'individual')
-    )
-    DISCHARGED_TO = (
-        ('transfer', 'transfer'),
-        ('adoption', 'adoption'),
-        ('deceased', 'deceased'),
-        ('owner', 'owner')
-    )
-    location = models.ForeignKey(Location)
-    intake_date = models.DateTimeField('intake date', blank=True, null=True)
-    intake_info = models.CharField(
-        max_length=20,
-        choices=RECEIVED_FROM,
-        blank=True, null=True
-    )
-    discharge_date = models.DateTimeField('discharge date', blank=True, null=True)
-    discharge_info = models.CharField(
-        max_length=20,
-        choices=DISCHARGED_TO,
-        blank=True, null=True
-    )
-    animal_id = models.CharField('crate number or other id', max_length=100, blank=True, null=True)
-    foster = models.BooleanField(default=False)
-
-    def __unicode__(self):
-        return self.location + ': ' + self.animal_id
-
-
 class Animal(models.Model):
     ANIMAL_TYPES = (
         ('cat', 'cat'),
@@ -65,7 +32,6 @@ class Animal(models.Model):
         ('N', 'neutered'),
         ('U', 'unknown')
     )
-    history = models.ManyToManyField(Intake)
     animal = models.CharField(max_length=20, choices=ANIMAL_TYPES)
     gender = models.CharField(max_length=1, default='unknown', choices=ANIMAL_GENDER)
     neuter = models.CharField(max_length=1, default='unknown', choices=ANIMAL_NEUTER)
@@ -76,6 +42,43 @@ class Animal(models.Model):
     markings = models.CharField(max_length=2000, blank=True, null=True)
     breed = models.CharField(max_length=200, blank=True, null=True)
 
+    def history(self):
+        return Intake.objects.filter(animal=self.id).all()
+
     def __unicode__(self):
-        return self.name + ' (' + self.animal + ')'
+        return self.animal + ' (id = ' + str(self.id) + ')'
+
+
+class Intake(models.Model):
+    RECEIVED_FROM = (
+        ('transfer', 'transfer'),
+        ('owner', 'owner'),
+        ('sar/authorities', 'sar/authorities'),
+        ('individual', 'individual')
+    )
+    DISCHARGED_TO = (
+        ('transfer', 'transfer'),
+        ('adoption', 'adoption'),
+        ('deceased', 'deceased'),
+        ('owner', 'owner')
+    )
+    location = models.ForeignKey(Location)
+    animal = models.ForeignKey(Animal)
+    tag = models.CharField('crate number or other id', max_length=100, blank=True, null=True)
+    intake_date = models.DateTimeField('intake date', blank=True, null=True)
+    intake_info = models.CharField(
+        max_length=20,
+        choices=RECEIVED_FROM,
+        blank=True, null=True
+    )
+    discharge_date = models.DateTimeField('discharge date', blank=True, null=True)
+    discharge_info = models.CharField(
+        max_length=20,
+        choices=DISCHARGED_TO,
+        blank=True, null=True
+    )
+    foster = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.location.name + ': ' + self.animal.animal
 
