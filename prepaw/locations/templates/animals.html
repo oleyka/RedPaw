@@ -7,9 +7,15 @@
 <body>
 <h1>List of animals</h1>
 {% block content %}
-{% for animal in animals %}
-    <p>another location</p>
-{% endfor %}
+{% if animals %}
+  <ul>
+  {% for animal in animals %}
+    <li>{{ animal }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+    <p>no animals yet</p>
+{% endif %}
 {% endblock %}
 </body>
 </html>

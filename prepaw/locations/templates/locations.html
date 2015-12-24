@@ -7,9 +7,15 @@
 <body>
 <h1>List of locations</h1>
 {% block content %}
-{% for loc in locations %}
-    <p>another location</p>
-{% endfor %}
+{% if locations %}
+  <ul>
+  {% for loc in locations %}
+    <li>{{ loc }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>no locations known</p>
+{% endif %}
 {% endblock %}
 </body>
 </html>
