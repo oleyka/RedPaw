@@ -14,8 +14,18 @@ class Location(models.Model):
 
 
 class Intake(models.Model):
-    RECEIVED_FROM = ( 'transfer', 'owner', 'sar/authorities', 'individual' )
-    DISCHARGED_TO = ( 'transfer', 'adoption', 'deceased', 'owner' )
+    RECEIVED_FROM = (
+        ('transfer', 'transfer'),
+        ('owner', 'owner'),
+        ('sar/authorities', 'sar/authorities'),
+        ('individual', 'individual')
+    )
+    DISCHARGED_TO = (
+        ('transfer', 'transfer'),
+        ('adoption', 'adoption'),
+        ('deceased', 'deceased'),
+        ('owner', 'owner')
+    )
     location = models.ForeignKey(Location)
     intake_date = models.DateTimeField('intake date', blank=True, null=True)
     intake_info = models.CharField(choices=RECEIVED_FROM, blank=True, null=True)
@@ -29,10 +39,24 @@ class Intake(models.Model):
 
 
 class Animal(models.Model):
-    ANIMAL_TYPES = ( 'cat', 'dog', 'horse', 'barnyard', 'bird', 'rabbit' )
-    ANIMAL_GENDER = ( 'female', 'male', 'unknown' )
-    ANIMAL_NEUTER = ( 'intact', 'neutered', 'unknown' )
-
+    ANIMAL_TYPES = (
+        ('cat', 'cat'),
+        ('dog', 'dog'),
+        ('horse', 'horse'),
+        ('barnyard', 'barnyard'),
+        ('bird', 'bird'),
+        ('rabbit', 'rabbit')
+    )
+    ANIMAL_GENDER = (
+        ('F', 'female'),
+        ('M', 'male'),
+        ('U', 'unknown')
+    )
+    ANIMAL_NEUTER = (
+        ('I', 'intact'),
+        ('N', 'neutered',
+        ('U','unknown')
+    )
     locations = models.ManyToManyField(Intake)
     animal = models.CharField(choices=ANIMAL_TYPES)
     gender = models.CharField(default='unknown', choices=ANIMAL_GENDER)
@@ -46,5 +70,4 @@ class Animal(models.Model):
 
     def __unicode__(self):
         return self.name + ' (' + self.animal + ')'
-
 
