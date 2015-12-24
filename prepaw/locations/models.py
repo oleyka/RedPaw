@@ -28,9 +28,17 @@ class Intake(models.Model):
     )
     location = models.ForeignKey(Location)
     intake_date = models.DateTimeField('intake date', blank=True, null=True)
-    intake_info = models.CharField(choices=RECEIVED_FROM, blank=True, null=True)
+    intake_info = models.CharField(
+        max_length=20,
+        choices=RECEIVED_FROM,
+        blank=True, null=True
+    )
     discharge_date = models.DateTimeField('discharge date', blank=True, null=True)
-    discharge_info = models.CharField(choices=DISCHARGED_TO, blank=True, null=True)
+    discharge_info = models.CharField(
+        max_length=20,
+        choices=DISCHARGED_TO,
+        blank=True, null=True
+    )
     animal_id = models.CharField('crate number or other id', max_length=100, blank=True, null=True)
     foster = models.BooleanField(default=False)
 
@@ -54,13 +62,13 @@ class Animal(models.Model):
     )
     ANIMAL_NEUTER = (
         ('I', 'intact'),
-        ('N', 'neutered',
+        ('N', 'neutered'),
         ('U','unknown')
     )
     locations = models.ManyToManyField(Intake)
-    animal = models.CharField(choices=ANIMAL_TYPES)
-    gender = models.CharField(default='unknown', choices=ANIMAL_GENDER)
-    neuter = models.CharField(default='unknown', choices=ANIMAL_NEUTER)
+    animal = models.CharField(max_length=20, choices=ANIMAL_TYPES)
+    gender = models.CharField(max_length=1, default='unknown', choices=ANIMAL_GENDER)
+    neuter = models.CharField(max_length=1, default='unknown', choices=ANIMAL_NEUTER)
     name = models.CharField(max_length=200, blank=True, null=True)
     age = models.CharField(max_length=200, blank=True, null=True)
     size = models.CharField(max_length=200, blank=True, null=True)
