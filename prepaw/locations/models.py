@@ -65,7 +65,7 @@ class Animal(models.Model):
         ('N', 'neutered'),
         ('U','unknown')
     )
-    locations = models.ManyToManyField(Intake)
+    history = models.ManyToManyField(Intake)
     animal = models.CharField(max_length=20, choices=ANIMAL_TYPES)
     gender = models.CharField(max_length=1, default='unknown', choices=ANIMAL_GENDER)
     neuter = models.CharField(max_length=1, default='unknown', choices=ANIMAL_NEUTER)
