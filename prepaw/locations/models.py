@@ -63,7 +63,7 @@ class Animal(models.Model):
     ANIMAL_NEUTER = (
         ('I', 'intact'),
         ('N', 'neutered'),
-        ('U','unknown')
+        ('U', 'unknown')
     )
     history = models.ManyToManyField(Intake)
     animal = models.CharField(max_length=20, choices=ANIMAL_TYPES)

@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from .models import Location, Animal
 
+
 def list_locations(request):
     locations = Location.objects.filter()
     context = { 'locations': locations }
