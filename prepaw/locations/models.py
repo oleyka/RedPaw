@@ -73,7 +73,7 @@ class Animal(models.Model):
     age = models.CharField(max_length=200, blank=True, null=True)
     size = models.CharField(max_length=200, blank=True, null=True)
     color = models.CharField(max_length=200, blank=True, null=True)
-    markings = models.CharField(max_length=200, blank=True, null=True)
+    markings = models.CharField(max_length=2000, blank=True, null=True)
     breed = models.CharField(max_length=200, blank=True, null=True)
 
     def __unicode__(self):
