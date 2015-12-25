@@ -32,11 +32,18 @@ class Animal(models.Model):
         ('N', 'neutered'),
         ('U', 'unknown')
     )
+    ANIMAL_AGE = (
+        ('B', 'baby'),
+        ('Y', 'young'),
+        ('A', 'adult'),
+        ('S', 'senior'),
+        ('U', 'unknown'),
+    )
     animal = models.CharField(max_length=20, choices=ANIMAL_TYPES)
-    gender = models.CharField(max_length=1, default='unknown', choices=ANIMAL_GENDER)
-    neuter = models.CharField(max_length=1, default='unknown', choices=ANIMAL_NEUTER)
+    gender = models.CharField(max_length=1, default='U', choices=ANIMAL_GENDER)
+    neuter = models.CharField(max_length=1, default='U', choices=ANIMAL_NEUTER)
     name = models.CharField(max_length=200, blank=True, null=True)
-    age = models.CharField(max_length=200, blank=True, null=True)
+    age = models.CharField(max_length=1, default='U', choices=ANIMAL_AGE)
     size = models.CharField(max_length=200, blank=True, null=True)
     color = models.CharField(max_length=200, blank=True, null=True)
     markings = models.CharField(max_length=2000, blank=True, null=True)

@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import Location, Intake, Animal
 
 
-class AnimalHistory(admin.StackedInline):
+class AnimalHistory(admin.TabularInline):
     model = Intake
     extra = 1
 
