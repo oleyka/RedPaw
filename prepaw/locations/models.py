@@ -48,6 +48,9 @@ class Animal(models.Model):
     color = models.CharField(max_length=200, blank=True, null=True)
     markings = models.CharField(max_length=2000, blank=True, null=True)
     breed = models.CharField(max_length=200, blank=True, null=True)
+    # where the animal came from
+    town = models.CharField(max_length=100, blank=True, null=True)
+    locality = models.CharField(max_length=100, blank=True, null=True)
 
     def history(self):
         return Intake.objects.filter(animal=self.id).all()
