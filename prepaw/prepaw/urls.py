@@ -18,6 +18,8 @@ from django.contrib import admin
 
 import locations.urls
 
+admin.sites.AdminSite.site_header = 'RedPaw site backend'
+
 urlpatterns = [
     url(r'^locations/', include(locations.urls)),
     url(r'^admin/', include(admin.site.urls)),
