@@ -13,7 +13,12 @@ class AnimalAdmin(admin.ModelAdmin):
         ('Animal', { 'fields': ['animal', 'breed', 'gender', 'neuter', 'age', 'size', 'color', 'markings'] }),
     ]
     inlines = [AnimalHistory]
+    list_display = ('animal', 'breed', 'gender', 'color')
 
 
-admin.site.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'address', 'phone', 'hours')
+
+
+admin.site.register(Location, LocationAdmin)
 admin.site.register(Animal, AnimalAdmin)
