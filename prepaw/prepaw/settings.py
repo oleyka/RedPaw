@@ -74,11 +74,15 @@ WSGI_APPLICATION = 'prepaw.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+if 'TRAVIS' in os.environ:
+    DB_NAME = 'prepaw.db.sqlite3'
+else:
+    DB_NAME = os.path.join(BASE_DIR, 'prepaw.db.sqlite3')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'prepaw.db.sqlite3'),
+        'NAME': DB_NAME,
     }
 }
 
