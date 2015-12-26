@@ -9,4 +9,5 @@
     - nginx
     - uwsgi
     - py27-django
+    - postgresql91-server # includes the matching client
   when: ansible_os_family == 'FreeBSD'
