@@ -1,0 +1,15 @@
+language: python
+sudo: false
+python:
+  - "2.7"
+branches:
+  only:
+    - detour/django-practice
+install:
+  - pip install -q Django=="1.8.5"
+  - python setup.py -q install
+env:
+  - DJANGO_VERSION=1.8.5
+script:
+  - cd prepaw
+  - ls
