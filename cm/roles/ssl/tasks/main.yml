@@ -63,7 +63,7 @@
     /usr/local/bin/letsencrypt certonly --standalone
     --standalone-supported-challenges tls-sni-01
     -d {{ ansible_fqdn }} -t -m {{ user_email }}
-    --agree-dev-preview --agree-tos --duplicate
+    --agree-tos --duplicate
     --server https://acme-v01.api.letsencrypt.org/directory
     creates=/usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/cert.pem
   when: >
