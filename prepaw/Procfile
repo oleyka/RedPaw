@@ -1,0 +1,1 @@
+web: gunicorn prepaw.wsgi --log-file -

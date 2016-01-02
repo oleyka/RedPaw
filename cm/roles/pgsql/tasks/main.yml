@@ -12,6 +12,7 @@
 
 # note: requires some jail settings:
 # https://forums.freebsd.org/threads/posgresql-does-not-work-with-freebsd-9-2-rc4.42041/
+# http://www.freebsddiary.org/jail-multiple.php
 - name: initialize postgresql
   sudo: yes
   command: /usr/local/etc/rc.d/postgresql oneinitdb
@@ -25,7 +26,7 @@
   notify: start pgsql
 
 - name: start pgsql
-  sudo: yes 
+  sudo: yes
   service:
     name: postgresql
     state: started
