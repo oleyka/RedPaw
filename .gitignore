@@ -1,0 +1,7 @@
+redpaw.env
+*.swp
+*.swo
+*.pyc
+*.sqlite3
+venv
+staticfiles

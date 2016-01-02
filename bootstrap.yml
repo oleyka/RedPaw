@@ -1,0 +1,27 @@
+---
+# ansible-playbook bootstrap.yml -i hosts -vvv
+
+- hosts: sites
+  tasks:
+    - name: install the site packages
+      sudo: yes
+      pkgng:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - collectd
+        - py27-supervisor
+        - nginx
+        - py27-django
+      when: ansible_os_family == "FreeBSD"
+
+    - name: create self-signed SSL cert
+      sudo: yes
+      command: >
+        /usr/bin/openssl req -new -nodes -x509
+        -subj "/C=US/ST=California/L=LosAltosHills/O=Self/CN=*.{{ ansible_fqdn }}"
+        -days 3650 -extensions v3_ca
+        -keyout /etc/ssl/{{ ansible_fqdn }}.key
+        -out /etc/ssl/{{ ansible_fqdn }}.crt
+        creates: /etc/ssl/{{ ansible_fqdn }}.crt
+      when: ansible_os_family == "FreeBSD"

@@ -1,0 +1,13 @@
+---
+
+- name: install Heroku and prerequisites
+  sudo: yes
+  pkgng:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - py27-pip
+    - py27-setuptools
+    - py27-virtualenv
+    - rubygem-heroku # includes ruby, libyaml and a dozen of other things
+  when: ansible_os_family == 'FreeBSD'
