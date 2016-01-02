@@ -17,14 +17,14 @@
     dest: /usr/local/etc/snmp/snmp.conf
   when: false
 
-- name: Enable snmpd
+- name: enable snmpd
   sudo: yes 
   service:
     name: snmpd
     enabled: yes 
-  notify: Restart snmpd
+  notify: start snmpd
 
-- name: Restart snmpd
+- name: start snmpd
   sudo: yes 
   service:
     name: snmpd

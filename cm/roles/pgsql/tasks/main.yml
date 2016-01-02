@@ -1,0 +1,31 @@
+---
+
+- name: install PostgreSQL and ansible deps
+  sudo: yes
+  pkgng:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - postgresql93-server # includes the matching client
+    - py27-psycopg2
+  when: ansible_os_family == 'FreeBSD'
+
+# note: requires some jail settings:
+# https://forums.freebsd.org/threads/posgresql-does-not-work-with-freebsd-9-2-rc4.42041/
+- name: initialize postgresql
+  sudo: yes
+  command: /usr/local/etc/rc.d/postgresql oneinitdb
+  when: ansible_os_family == 'FreeBSD'
+
+- name: enable service
+  sudo: yes
+  service:
+    name: postgresql
+    enabled: yes
+  notify: start pgsql
+
+- name: start pgsql
+  sudo: yes 
+  service:
+    name: postgresql
+    state: started
