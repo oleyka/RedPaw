@@ -15,6 +15,13 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -25,7 +32,7 @@ SECRET_KEY = 'g2ed)$l6l3^u7+$nv^!gde6#oburmz84de4i=%5%hv5wn5mjdk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # really?
 
 
 # Application definition
@@ -69,22 +76,13 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'prepaw.wsgi.application'
+WSGI_APPLICATION = 'prepaw.heroku-wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-if 'TRAVIS' in os.environ:
-    DB_NAME = 'prepaw.db.sqlite3'
-else:
-    DB_NAME = os.path.join(BASE_DIR, 'prepaw.db.sqlite3')
+import dj_database_url
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': DB_NAME,
-    }
-}
+DATABASES = {'default': dj_database_url.config()}
 
 
 # Internationalization
@@ -102,7 +100,5 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
-STATIC_URL = '/static/'
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
