@@ -1,3 +1,7 @@
+"""
+RedPaw models
+"""
+
 from django.db import models
 
 
@@ -91,4 +95,3 @@ class Intake(models.Model):
 
     def __unicode__(self):
         return self.location.name + ': ' + self.animal.animal
-
