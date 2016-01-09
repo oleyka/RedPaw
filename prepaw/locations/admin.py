@@ -3,8 +3,8 @@ RedPaw admin panels
 """
 
 from django.contrib import admin
-
 from .models import Location, Intake, Animal
+
 
 class AnimalHistory(admin.TabularInline):
     """ animal history class """
@@ -14,10 +14,13 @@ class AnimalHistory(admin.TabularInline):
 
 class AnimalAdmin(admin.ModelAdmin):
     """ animal class """
-    fieldsets = [('Animal',
-                  {'fields': ['animal', 'breed', 'gender', 'neuter',
-                              'age', 'size', 'color', 'markings']}
-                 ),]
+    fieldsets = [(
+        'Animal',
+        {
+            'fields': ['animal', 'breed', 'gender', 'neuter',
+                       'age', 'size', 'color', 'markings']
+        }
+    ), ]
     inlines = [AnimalHistory]
     list_display = ('animal', 'breed', 'gender', 'color', 'locality')
     list_filter = ['animal', 'gender', 'breed', 'color', 'age', 'locality']

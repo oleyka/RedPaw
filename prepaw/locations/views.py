@@ -17,4 +17,3 @@ def list_animals(request):
     animals = Animal.objects.filter()
     context = {'animals': animals}
     return render(request, 'animals.html', context)
-
