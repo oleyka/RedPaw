@@ -8,6 +8,10 @@ When deploying locally:
 source ./redpaw.env && python prepaw/manage.py runserver
 ```
 
+To deploy to Heroku press the button:
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+
 TODO:
 
 1. Playbook for automated Heroku deployments.
