@@ -1,0 +1,9 @@
+{
+    "name": "RedPaw Project",
+    "description": "description...",
+    "logo": "https://raw.githubusercontent.com/oleyka/RedPaw/master/prepaw/prepaw/static/images/pawprint.gif",
+    "website": "https://redpaw.herokuapp.com/",
+    "repository": "https://github.com/oleyka/RedPaw",
+    "success_url": "/",
+    "addons": []
+}
