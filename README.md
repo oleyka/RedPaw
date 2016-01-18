@@ -3,14 +3,18 @@
 [![Build Status](https://travis-ci.org/oleyka/RedPaw.svg?branch=detour%2Fdjango-practice)](https://travis-ci.org/oleyka/RedPaw)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://github.com/oleyka/RedPaw)
 
-When deploying locally:
+Deploy locally
+----------------------
 ```
 source ./redpaw.env && python prepaw/manage.py runserver
 ```
 
-To deploy to Heroku press the button:
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Deploy to Heroku
+-------------------
+To deploy a new instance:
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?env[DJANGO_SETTINGS_MODULE]=prepaw.heroku-settings)
 
+Heroku-specific settings are retrieved using the ```DJANGO_SETTINGS_MODULE``` variable in Heroku UI.
 
 TODO:
 
