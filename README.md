@@ -4,13 +4,13 @@
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://github.com/oleyka/RedPaw)
 
 Deploy locally
-----------------------
+--------------
 ```
 source ./redpaw.env && python prepaw/manage.py runserver
 ```
 
 Deploy to Heroku
--------------------
+----------------
 To deploy a new instance:
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?env[DJANGO_SETTINGS_MODULE]=prepaw.heroku-settings)
 
