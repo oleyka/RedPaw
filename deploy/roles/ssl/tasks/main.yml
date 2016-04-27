@@ -1,100 +1,11 @@
 ---
 
-- name: create self-signed SSL cert
-  become: yes 
-  command: >
-    /usr/bin/openssl req -new -nodes -x509
-    -subj "/C=US/ST=California/L=LosAltosHills/O=Self/CN={{ ansible_fqdn }}"
-    -days 3650 -extensions v3_ca
-    -keyout /etc/ssl/{{ ansible_fqdn }}-self.key
-    -out /etc/ssl/{{ ansible_fqdn }}-self.crt
-    creates=/etc/ssl/{{ ansible_fqdn }}-self.crt
+- include: letsencrypt.yml
   when: >
-    ansible_os_family == 'FreeBSD' and 
-    ssl_source == 'self'
+    ansible_os_family == 'FreeBSD' and
+    ssl_source == 'letsencrypt'
 
-- name: symlink self-signed certs to /etc/ssl
-  become: yes
-  file:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-  with_items:
-    - src: /etc/ssl/{{ ansible_fqdn }}-self.crt
-      dest: /etc/ssl/{{ ansible_fqdn }}.crt
-    - src: /etc/ssl/{{ ansible_fqdn }}-self.key
-      dest: /etc/ssl/{{ ansible_fqdn }}.key
+- include: selfsign.yml
   when: >
     ansible_os_family == 'FreeBSD' and
     ssl_source == 'self'
-
-- name: install lets encrypt tools
-  become: yes
-  pkgng:
-    name: py27-letsencrypt
-    state: present
-  when: >
-    ansible_os_family == 'FreeBSD' and
-    ssl_source == 'letsencrypt'
-
-- name: is there nginx service running
-  become: yes
-  command: >
-    /usr/sbin/service nginx onestatus
-  register: nginx_service_active
-  ignore_errors: True
-  when: >
-    ansible_os_family == 'FreeBSD' and
-    ssl_source == 'letsencrypt'
-
-- name: stop nginx
-  become: yes
-  service:
-    name: nginx
-    state: stopped
-  when: >
-    ansible_os_family == 'FreeBSD' and
-    ssl_source == 'letsencrypt' and
-    nginx_service_active.rc == 0
-
-- name: add letsencrypt certs
-  become: yes
-  command: >
-    /usr/local/bin/letsencrypt certonly --standalone
-    --standalone-supported-challenges tls-sni-01
-    -d {{ ansible_fqdn }} -t -m {{ user_email }}
-    --agree-tos --duplicate
-    --server https://acme-v01.api.letsencrypt.org/directory
-    creates=/usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/cert.pem
-  when: >
-    ansible_os_family == 'FreeBSD' and
-    ssl_source == 'letsencrypt'
-
-- name: symlink certs to /etc/ssl
-  become: yes
-  file:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-  with_items:
-    - src: /usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/fullchain.pem
-      dest: /etc/ssl/{{ ansible_fqdn }}-fullchain.crt
-    - src: /usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/chain.pem
-      dest: /etc/ssl/{{ ansible_fqdn }}-chain.crt
-    - src: /usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/cert.pem
-      dest: /etc/ssl/{{ ansible_fqdn }}.crt
-    - src: /usr/local/etc/letsencrypt/live/{{ ansible_fqdn }}/privkey.pem
-      dest: /etc/ssl/{{ ansible_fqdn }}.key
-  when: >
-    ansible_os_family == 'FreeBSD' and
-    ssl_source == 'letsencrypt'
-
-- name: restart nginx
-  become: yes
-  service:
-    name: nginx
-    state: started
-  when: >
-    ansible_os_family == 'FreeBSD' and
-    ssl_source == 'letsencrypt' and
-    nginx_service_active.rc == 0

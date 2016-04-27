@@ -9,6 +9,14 @@ Deploy locally
 source ./redpaw.env && python prepaw/manage.py runserver
 ```
 
+Deploy in vagrant
+-----------------
+```
+vagrant up
+cd deploy
+ansible-playbook main.yml -i hosts --limit local
+```
+
 Deploy to Heroku
 ----------------
 To deploy a new instance:

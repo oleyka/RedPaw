@@ -1,3 +1,9 @@
-[sites]
-redpaw ansible_ssh_user=admin ansible_python_interpreter=/usr/local/bin/python
+[local]
 redpaw.local ansible_ssh_user=admin ansible_python_interpreter=/usr/local/bin/python
+
+[prod]
+redpaw ansible_ssh_user=admin ansible_python_interpreter=/usr/local/bin/python
+
+[sites:children]
+local
+prod
