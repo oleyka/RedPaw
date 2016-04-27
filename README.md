@@ -13,6 +13,7 @@ Deploy in vagrant
 -----------------
 ```
 vagrant up
+# set ssh keys for host "redpaw.local", user "admin" in ~/.ssh/config
 cd deploy
 ansible-playbook main.yml -i hosts --limit local
 ```
