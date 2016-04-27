@@ -10,7 +10,6 @@
         state: present
       with_items:
         - bash
-        - git
 
     - name: add user
       become: yes
