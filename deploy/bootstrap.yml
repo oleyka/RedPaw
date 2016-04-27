@@ -1,10 +1,11 @@
 ---
-# ansible-playbook bootstrap.yml -i hosts -vvv
+# ansible-playbook bootstrap.yml -i hosts --limit redpaw.local -vvv
 
 - hosts: sites
+  gather_facts: no
   tasks:
     - name: install the site packages
-      sudo: yes
+      become: yes
       pkgng:
         name: "{{ item }}"
         state: present
@@ -16,7 +17,7 @@
       when: ansible_os_family == "FreeBSD"
 
     - name: create self-signed SSL cert
-      sudo: yes
+      become: yes
       command: >
         /usr/bin/openssl req -new -nodes -x509
         -subj "/C=US/ST=California/L=LosAltosHills/O=Self/CN=*.{{ ansible_fqdn }}"

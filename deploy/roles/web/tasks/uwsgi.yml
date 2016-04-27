@@ -1,7 +1,7 @@
 ---
 
 - name: install uwsgi package
-  sudo: yes
+  become: yes
   pkgng:
     name: uwsgi
     state: present

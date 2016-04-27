@@ -1,0 +1,44 @@
+---
+- hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: install bash
+      become: yes
+      pkgng:
+        name: bash
+        state: present
+
+    - name: add user
+      become: yes
+      user:
+        name: "{{ owner }}"
+        shell: /usr/local/bin/bash
+        groups: wheel
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+
+    - name: allow owner ssh access
+      become: yes
+      copy:
+        remote_src: yes
+        src: "/home/{{ owner }}/.ssh/id_rsa.pub"
+        dest: "/home/{{ owner }}/.ssh/authorized_keys"
+        mode: 0400
+        owner: "{{ owner }}"
+        group: "{{ owner }}"
+        force: no
+
+    - name: allow wheel passwordless sudo
+      become: yes
+      lineinfile:
+        dest: /usr/local/etc/sudoers
+        line: "%wheel ALL=(ALL) NOPASSWD: ALL"
+        state: present
+
+    - name: shorten motd
+      become: yes
+      copy:
+        dest: /etc/motd
+        content: "Welcome to {{ inventory_hostname }} X:-)\n\n"
+        force: yes

@@ -1,24 +1,24 @@
 ---
 - name: create directory for custom repo settings
-  sudo: yes
+  become: yes
   file:
     name: /usr/local/etc/pkg/repos
     state: directory
   when: ansible_os_family == 'FreeBSD'
 
 - name: copy custom repo config
-  sudo: yes
+  become: yes
   copy:
     src: files/repos-FreeBSD.conf
     dest: /usr/local/etc/pkg/repos/FreeBSD.conf
   when: ansible_os_family == 'FreeBSD'
 
 - name: update FreeBSD repo catalogue
-  sudo: yes
+  become: yes
   shell: "pkg update -f"
 
 - name: install system packages # to be moved to the corresponding roles
-  sudo: yes
+  become: yes
   pkgng:
     name: "{{ item }}"
     state: present

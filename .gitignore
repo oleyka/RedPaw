@@ -1,3 +1,6 @@
+.bundle
+.vagrant
+*.retry
 redpaw.env
 *.swp
 *.swo

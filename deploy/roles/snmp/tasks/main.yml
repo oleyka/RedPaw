@@ -1,7 +1,7 @@
 ---
 
 - name: install packages
-  sudo: yes
+  become: yes
   pkgng:
     name: "{{ item }}"
     state: present
@@ -11,21 +11,21 @@
   when: ansible_os_family == 'FreeBSD'
 
 - name: add snmp config # edit me
-  sudo: yes 
+  become: yes 
   copy:
     src: /usr/local/share/snmp/snmpd.conf.example
     dest: /usr/local/etc/snmp/snmp.conf
   when: false
 
 - name: enable snmpd
-  sudo: yes 
+  become: yes 
   service:
     name: snmpd
     enabled: yes 
   notify: start snmpd
 
 - name: start snmpd
-  sudo: yes 
+  become: yes 
   service:
     name: snmpd
     state: started

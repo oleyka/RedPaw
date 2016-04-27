@@ -1,7 +1,7 @@
 ---
 
 - name: install PostgreSQL and ansible deps
-  sudo: yes
+  become: yes
   pkgng:
     name: "{{ item }}"
     state: present
@@ -14,19 +14,19 @@
 # https://forums.freebsd.org/threads/posgresql-does-not-work-with-freebsd-9-2-rc4.42041/
 # http://www.freebsddiary.org/jail-multiple.php
 - name: initialize postgresql
-  sudo: yes
+  become: yes
   command: /usr/local/etc/rc.d/postgresql oneinitdb
   when: ansible_os_family == 'FreeBSD'
 
 - name: enable service
-  sudo: yes
+  become: yes
   service:
     name: postgresql
     enabled: yes
   notify: start pgsql
 
 - name: start pgsql
-  sudo: yes
+  become: yes
   service:
     name: postgresql
     state: started

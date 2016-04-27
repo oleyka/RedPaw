@@ -1,7 +1,7 @@
 ---
 
 - name: install the web packages
-  sudo: yes
+  become: yes
   pkgng:
     name: "{{ item }}"
     state: present

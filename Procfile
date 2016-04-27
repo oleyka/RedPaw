@@ -1,1 +1,1 @@
-web: cd prepaw; uwsgi --ini ../cm/roles/heroku/templates/uwsgi.ini
+web: cd prepaw; uwsgi --ini ../deploy/roles/heroku/templates/uwsgi.ini
