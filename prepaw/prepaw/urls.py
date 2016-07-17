@@ -16,11 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-import locations.urls
-
 admin.sites.AdminSite.site_header = 'RedPaw site backend'
 
 urlpatterns = [
-    url(r'^locations/', include(locations.urls)),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^locations/', include('locations.urls')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^polls/', include('polls.urls')),
 ]

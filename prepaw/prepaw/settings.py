@@ -24,7 +24,9 @@ SECRET_KEY = 'g2ed)$l6l3^u7+$nv^!gde6#oburmz84de4i=%5%hv5wn5mjdk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
+# ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = []
 
 
@@ -38,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'locations',
+    'polls',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,7 +96,7 @@ DATABASES = {
 LANGUAGE_CODE = 'en-us'
 
 # TIME_ZONE = 'UTC'
-TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
