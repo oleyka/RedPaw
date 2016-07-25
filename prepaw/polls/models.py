@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
 from django.db import models
-from django.utils import timezone
-import pytz
 
 
 class Question(models.Model):
@@ -19,12 +17,3 @@ class Choice(models.Model):
 
     def __unicode__(self):
         return self.question.question_text + " == " + self.choice_text
-
-
-class TimezoneMiddleware(object):
-    def process_request(self, request):
-        tzname = request.session.get('django_timezone')
-        if tzname:
-            timezone.activate(pytz.timezone(tzname))
-        else:
-            timezone.deactivate()
