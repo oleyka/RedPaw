@@ -1,10 +1,12 @@
 .bundle
-.vagrant
 *.retry
 redpaw.env
 *.swp
 *.swo
 *.pyc
 *.sqlite3
+.tox/
+.vagrant/
+.vagrant.d/
 venv
 staticfiles
