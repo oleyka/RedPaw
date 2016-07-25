@@ -6,3 +6,4 @@ static3==0.6.1
 uwsgi==2.0.11
 wheel==0.24.0
 werkzeug
+pytz
