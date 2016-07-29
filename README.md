@@ -11,6 +11,12 @@ Deploy locally
 source ./redpaw.env && python prepaw/manage.py runserver
 ```
 
+Test
+----
+```
+tox
+```
+
 Deploy in vagrant
 -----------------
 ```
