@@ -1,4 +1,6 @@
 .bundle
+.coverage
+coverage.xml
 *.retry
 redpaw.env
 *.swp

@@ -22,7 +22,6 @@ def create_question(question_text, days):
 
 
 class QuestionMethodTests(TestCase):
-
     def test_was_published_recently_with_old_question(self):
         """
         was_published_recently() should return False for questions whose

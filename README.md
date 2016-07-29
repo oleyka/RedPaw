@@ -1,7 +1,9 @@
 # RedPaw
 
 [![Build Status](https://travis-ci.org/oleyka/RedPaw.svg?branch=detour%2Fdjango-practice)](https://travis-ci.org/oleyka/RedPaw)
+[![codecov](https://codecov.io/gh/oleyka/RedPaw/branch/master/graph/badge.svg)](https://codecov.io/gh/oleyka/RedPaw)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://github.com/oleyka/RedPaw)
+
 
 Deploy locally
 --------------

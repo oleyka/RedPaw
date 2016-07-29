@@ -2,3 +2,4 @@ tox
 pep8
 pylint
 pylint-django
+codecov
