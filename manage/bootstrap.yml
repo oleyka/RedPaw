@@ -13,7 +13,6 @@
         - collectd5
         - py27-supervisor
         - nginx
-        - py27-django19
       when: ansible_os_family == "FreeBSD"
 
     - name: create self-signed SSL cert

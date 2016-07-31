@@ -23,11 +23,15 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'g2ed)$l6l3^u7+$nv^!gde6#oburmz84de4i=%5%hv5wn5mjdk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-ALLOWED_HOSTS = ['*']
-DEBUG = False
+# ALLOWED_HOSTS = ['*']
+# DEBUG = False
 
-# DEBUG = True
-# ALLOWED_HOSTS = []
+DEBUG = True
+if 'VAGRANT' in os.environ:
+    # python manage.py runserver 192.168.42.42:8000
+    ALLOWED_HOSTS = ['10.0.2.2']
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -79,6 +83,8 @@ WSGI_APPLICATION = 'prepaw.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 if 'TRAVIS' in os.environ:
     DB_NAME = 'prepaw.db.sqlite3'
+elif 'VAGRANT' in os.environ:
+    DB_NAME = '/tmp/prepaw.db.sqlite3'
 else:
     DB_NAME = os.path.join(BASE_DIR, 'prepaw.db.sqlite3')
 

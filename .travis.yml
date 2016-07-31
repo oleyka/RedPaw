@@ -18,8 +18,8 @@ before_install:
   - export DJANGO_SECRET_KEY='00000000000000000000000000000000000000000000000000'
 
 install:
+  - pip install uwsgi  # install from packages outside of Travis
   - pip install -r requirements.txt
-  - pip install -q Django==$DJANGO_VERSION
   - pip install -r test-requirements.txt
 
 script:

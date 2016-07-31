@@ -16,6 +16,7 @@
 - name: update FreeBSD repo catalogue
   become: yes
   shell: "pkg update -f"
+  when: ansible_os_family == 'FreeBSD'
 
 - name: install system packages # to be moved to the corresponding roles
   become: yes
@@ -24,5 +25,7 @@
     state: present
   with_items:
     - collectd5
+    - py27-sqlite3
     - py27-supervisor
+    - py27-pip
   when: ansible_os_family == 'FreeBSD'
