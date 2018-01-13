@@ -3,10 +3,10 @@ language: python
 sudo: false
 
 python:
-  - 2.7
+  - 3.6
 
 env:
-  - DJANGO_VERSION=1.9
+  - DJANGO_VERSION=2.0.1
 
 branches:
   only:

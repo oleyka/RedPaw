@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.customize ["modifyvm", :id, "--nictype2", "virtio"]
   end
 
-  config.vm.box = "freebsd/FreeBSD-10.3-RELEASE"
+  config.vm.box = "freebsd/FreeBSD-11.1-STABLE"
   config.vm.box_check_update = false
   config.vm.synced_folder ".", "/vagrant", id: "vagrant-root",
     :nfs => true,

@@ -1,5 +1,15 @@
+{# load bootstrap3 #}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 {% load staticfiles %}
 
+{% block title %}
+    Polls
+{% endblock %}
+
+{% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 
 {% if latest_question_list %}
@@ -11,3 +21,4 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+{% endblock %}
