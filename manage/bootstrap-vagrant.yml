@@ -10,6 +10,8 @@
         state: present
       with_items:
         - bash
+        - vim-console
+        - curl
 
     - name: add user
       become: yes
@@ -32,6 +34,12 @@
         group: "{{ owner }}"
         force: no
 
+    - name: change vagrant user shell
+      become: yes
+      user:
+        name: vagrant
+        shell: /usr/local/bin/bash
+
     - name: allow wheel passwordless sudo
       become: yes
       lineinfile:
@@ -45,3 +53,9 @@
         dest: /etc/motd
         content: "Welcome to {{ inventory_hostname }} X:-)\n\n"
         force: yes
+
+    - name: vim is the new vi
+      lineinfile:
+        dest: ~/.profile
+        regexp: "^alias vi="
+        line: "alias vi=vim"

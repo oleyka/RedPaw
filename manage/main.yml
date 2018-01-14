@@ -6,4 +6,5 @@
     - bootstrap
     - ssl
     - web
+    - pgsql
 #    - snmp
