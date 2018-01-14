@@ -37,5 +37,5 @@ TODO:
 
 1. Playbook for automated Heroku deployments.
 2. Playbooks for in-house deployments.
-3. For linting, add to manage/: ```pip install pylint, pylint-django and pep8```
+3. For linting, add to manage/: ```pip install pylint, pylint-django and pycodestyle```
 4. Test dataset and tests.
