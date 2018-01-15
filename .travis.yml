@@ -2,14 +2,16 @@ language: python
 
 sudo: false
 
-addons:
-  postgresql: '9.6'
-
 python:
   - '3.6'
 
+addons:
+  postgresql: '9.6'
+
 env:
-  - DJANGO_VERSION=2.0.1
+  - DJANGO_SETTINGS_MODULE=tutorial.settings
+  - DJANGO_DEBUG=true
+  - DJANGO_SECRET_KEY='00000000000000000000000000000000000000000000000000'
 
 branches:
   only:
@@ -24,12 +26,11 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'create database pollsdb;' -U postgres
-  - psql -c "create role pollsuser with login password 'pollspasswd';" -U postgres
-  - psql -c 'grant all privileges on database "pollsdb" to pollsuser;' -U postgres
-  - export DJANGO_SETTINGS_MODULE=tutorial.settings
-  - export DJANGO_DEBUG=true
-  - export DJANGO_SECRET_KEY='00000000000000000000000000000000000000000000000000'
+  - psql -U postgres -c 'CREATE DATABASE pollsdb;'
+  - psql -U postgres -c "CREATE ROLE pollsuser WITH LOGIN PASSWORD 'pollspasswd';"
+  - psql -U postgres -c 'GRANT ALL PRIVILEGES ON DATABASE "pollsdb" TO pollsuser;'
+  - psql -U postgres -c 'ALTER USER pollsuser CREATEDB;'
+  - cd prepaw && python manage.py migrate
 
 script:
   - time tox
