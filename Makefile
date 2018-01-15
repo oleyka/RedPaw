@@ -1,7 +1,7 @@
 venv:
 	virtualenv -p python3 venv
-	. venv/bin/activate && venv/bin/pip install -Ir requirements.txt
-	. venv/bin/activate && venv/bin/pip install -Ir test-requirements.txt
+	. venv/bin/activate && venv/bin/pip install -IUr requirements.txt
+	. venv/bin/activate && venv/bin/pip install -IUr test-requirements.txt
 
 freeze: venv requirements.in test-requirements.txt
 	. venv/bin/activate && venv/bin/pip install pip-tools
