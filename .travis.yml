@@ -30,7 +30,7 @@ services:
 
 before_script:
   - psql -c 'create database pollsdb;' -U postgres
-  - psql -c 'create role pollsuser with login password \'pollspasswd\';' -U postgres
+  - psql -c "create role pollsuser with login password 'pollspasswd';" -U postgres
   - psql -c 'grant all privileges on database "pollsdb" to pollsuser;' -U postgres
 
 script:
