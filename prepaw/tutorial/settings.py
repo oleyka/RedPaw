@@ -80,7 +80,7 @@ DATABASES = {
         'USER': 'pollsuser',
         'PASSWORD': 'pollspasswd',
         'HOST': '',
-        'PORT': '5432',
+        'PORT': '',
     }
 }
 

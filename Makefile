@@ -11,6 +11,9 @@ freeze: venv requirements.in test-requirements.txt
 run: venv
 	python prepaw/manage.py runserver 192.168.42.42:8000
 
+test:
+	tox
+
 clean:
 	rm -rf .tox
 	rm -f coverage.xml .coverage

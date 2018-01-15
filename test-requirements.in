@@ -1,6 +1,6 @@
 tox
 pycodestyle
-pylint
+pylint==1.7.0
 pylint-django
 pytest-django
 codecov

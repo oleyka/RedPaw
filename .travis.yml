@@ -2,8 +2,11 @@ language: python
 
 sudo: false
 
+addons:
+  postgresql: '9.6'
+
 python:
-  - 3.6
+  - '3.6'
 
 env:
   - DJANGO_VERSION=2.0.1
@@ -21,6 +24,14 @@ install:
   - pip install uwsgi  # install from packages outside of Travis
   - pip install -r requirements.txt
   - pip install -r test-requirements.txt
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database pollsdb;' -U postgres
+  - psql -c 'create role pollsuser with login password \'pollspasswd\';' -U postgres
+  - psql -c 'grant all privileges on database "pollsdb" to pollsuser;' -U postgres
 
 script:
   - time tox
