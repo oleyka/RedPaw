@@ -12,6 +12,7 @@
         - bash
         - vim-console
         - curl
+        - git
 
     - name: add user
       become: yes

@@ -5,9 +5,9 @@
 from django.http import HttpResponse
 
 
-def index():
+def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-def blah():
+def blah(request):
     return HttpResponse("Hello, blah-blah.")
