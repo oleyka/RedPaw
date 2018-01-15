@@ -1,0 +1,6 @@
+tox
+pycodestyle
+pylint
+pylint-django
+pytest-django
+codecov
