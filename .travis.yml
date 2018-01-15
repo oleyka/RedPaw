@@ -15,11 +15,6 @@ branches:
   only:
     - master
 
-before_install:
-  - export DJANGO_SETTINGS_MODULE=prepaw.settings
-  - export DJANGO_DEBUG=true
-  - export DJANGO_SECRET_KEY='00000000000000000000000000000000000000000000000000'
-
 install:
   - pip install uwsgi  # install from packages outside of Travis
   - pip install -r requirements.txt
@@ -32,6 +27,9 @@ before_script:
   - psql -c 'create database pollsdb;' -U postgres
   - psql -c "create role pollsuser with login password 'pollspasswd';" -U postgres
   - psql -c 'grant all privileges on database "pollsdb" to pollsuser;' -U postgres
+  - export DJANGO_SETTINGS_MODULE=tutorial.settings
+  - export DJANGO_DEBUG=true
+  - export DJANGO_SECRET_KEY='00000000000000000000000000000000000000000000000000'
 
 script:
   - time tox
