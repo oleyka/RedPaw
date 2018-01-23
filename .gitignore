@@ -12,3 +12,5 @@ redpaw.env
 .vagrant.d/
 venv
 staticfiles
+redpaw.sublime-project
+redpaw.sublime-workspace
