@@ -1,6 +1,6 @@
 tox
 pycodestyle
 pylint
-pylint-django-forked
+pylint-django
 pytest-django
 codecov
