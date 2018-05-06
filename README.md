@@ -8,13 +8,14 @@
 Deploy locally
 --------------
 ```
-source ./redpaw.env && python prepaw/manage.py runserver
+sudo service postgresql start
+make run
 ```
 
 Test
 ----
 ```
-tox
+make test
 ```
 
 Deploy in vagrant
