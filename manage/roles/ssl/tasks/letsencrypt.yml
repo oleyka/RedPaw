@@ -3,7 +3,7 @@
 - name: install lets encrypt tools
   become: yes 
   pkgng:
-    name: py27-letsencrypt
+    name: py27-certbot
     state: present
 
 - name: is there nginx service running
@@ -28,7 +28,7 @@
   become: yes 
   command: >
     /usr/local/bin/letsencrypt certonly --standalone
-    --standalone-supported-challenges tls-sni-01
+    --standalone-supported-challenges http-01
     -d {{ ansible_fqdn }} -t -m {{ git_email.stdout }}
     --agree-tos --duplicate
     --server https://acme-v01.api.letsencrypt.org/directory
@@ -57,3 +57,4 @@
     state: started
   when: nginx_service_active.rc == 0
 
+# TODO include an auto-renew script
