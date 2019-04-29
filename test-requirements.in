@@ -3,4 +3,4 @@ pycodestyle
 pylint
 pylint-django
 pytest-django
-codecov
+codecov>=2.0.15
